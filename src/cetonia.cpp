@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void hello_world()
+void ctHelloWorld()
 {
 	std::cout << "hello, world!" << std::endl;
 }
