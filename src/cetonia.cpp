@@ -1,4 +1,4 @@
-#include <cetonia.h>
+#include <cetonia/client.h>
 
 #include <iostream>
 
