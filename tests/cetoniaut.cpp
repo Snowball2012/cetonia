@@ -32,6 +32,20 @@ int main()
 		std::cerr << "connection destruction failed";
 	}
 
+	std::cout << "\nRound2\n";
+
+	ctCreateConnection( &connection );
+	ctBeginRecording( connection, 300 );
+
+	message = "msg1";
+	ctSendData( connection, message.c_str(), message.size() );
+
+	message = "msg2";
+	ctSendData( connection, message.c_str(), message.size() );
+
+	ctFlush( connection );
+	ctCloseConnection( connection );
+
     return 0;
 }
 
