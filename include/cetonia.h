@@ -28,6 +28,11 @@ inline char ctSucceeded( ctError err )
 	return err == CT_OK;
 }
 
+inline char ctFailed( ctError err )
+{
+	return ! ctSucceeded( err );
+}
+
 // hello, world! =)
 CETONIA_API void ctHelloWorld();
 
@@ -39,4 +44,4 @@ CETONIA_API ctError ctCloseConnection( ctConnectionHandle connection );
 
 // sends arbitrary data through connection (synchronously)
 // data size should be less or equal than the size of the connection buffer
-CETONIA_API ctError ctSendData( ctConnectionHandle connection, void* data, size_t size );
+CETONIA_API ctError ctSendData( ctConnectionHandle connection, const void* data, size_t size );

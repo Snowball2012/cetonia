@@ -94,7 +94,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CETONIA_API_EXPORT;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -103,7 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CETONIA_API_EXPORT;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -114,7 +114,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CETONIA_API_EXPORT;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -129,7 +129,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>3rdparty\boost_1_62_0;include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CETONIA_API_EXPORT;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -139,9 +139,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\cetonia.h" />
+    <ClInclude Include="src\Connection.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cetonia.cpp" />
+    <ClCompile Include="src\Connection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
