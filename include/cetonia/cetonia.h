@@ -16,7 +16,8 @@ enum ctError
 {
 	CT_OK = 0,
 	CT_GeneralError = 1,
-	CT_NotImplemented = 2
+	CT_NotImplemented = 2,
+	CT_InvalidArgument = 3
 };
 
 inline char ctSucceeded( ctError err )

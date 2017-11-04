@@ -20,7 +20,7 @@ inline char ctIsTokenValid( ctTokenType token_type )
 // Here and below all pointers point to source buffer. Don't forget to change pointers if you invalidate the buffer
 typedef struct ctTokenArbitrary
 {
-	void* data;
+	const void* data;
 	size_t size;
 } ctTokenArbitrary;
 
@@ -42,17 +42,13 @@ union ctTokenData
 {
 	ctTokenArbitrary arbitrary;
 	ctTokenPoint2d v2d;
+	ctTokenLine2d l2d;
 };
 
 typedef struct ctToken
 {
 	ctTokenType type;
-	union
-	{
-		ctTokenArbitrary arb;
-		ctTokenPoint2d pt2;
-		ctTokenLine2d line2;
-	};
+	ctTokenData data;
 } ctToken;
 
 // Parses next token

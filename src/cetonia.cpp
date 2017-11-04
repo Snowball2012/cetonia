@@ -6,6 +6,8 @@
 #include "Connection.h"
 #include "SMConnection.h"
 
+#include "Parser.h"
+
 void ctHelloWorld()
 {
 	std::cout << "hello, world!" << std::endl;
@@ -61,6 +63,8 @@ ctError ctFlush( ctConnectionHandle handle )
 // parser
 ctError ctParseToken( const void* buf, size_t buf_size, ctToken* token, size_t* shift_to_next )
 {
-	_ASSERT_EXPR( false, "not implemented" );
-	return CT_NotImplemented;
+	if ( ! ( token && shift_to_next ) )
+		return CT_InvalidArgument;
+
+	return Parser::ParseToken( buf, buf_size, *token, *shift_to_next ) ? CT_OK : CT_GeneralError;
 }
