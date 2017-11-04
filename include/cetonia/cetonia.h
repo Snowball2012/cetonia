@@ -15,7 +15,8 @@
 enum ctError
 {
 	CT_OK = 0,
-	CT_GeneralError = 1
+	CT_GeneralError = 1,
+	CT_NotImplemented = 2
 };
 
 inline char ctSucceeded( ctError err )
@@ -27,3 +28,28 @@ inline char ctFailed( ctError err )
 {
 	return ! ctSucceeded( err );
 }
+
+// Simple data types
+typedef struct ctColor
+{
+	union
+	{
+		struct
+		{
+			double r, g, b;
+		};
+		double rgb[3];
+	};
+} ctColor;
+
+typedef struct ctVector2d
+{
+	union
+	{
+		struct
+		{
+			double x, y;
+		};
+		double v[2];
+	};
+} ctVector2d;

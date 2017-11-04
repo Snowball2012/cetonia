@@ -1,4 +1,5 @@
 #include <cetonia/client.h>
+#include <cetonia/parser.h>
 
 #include <iostream>
 
@@ -55,4 +56,11 @@ ctError ctBeginRecording( ctConnectionHandle handle, size_t estimate_size )
 ctError ctFlush( ctConnectionHandle handle )
 {
 	return Handle2Interface( handle )->FinishRecording() ? CT_OK : CT_GeneralError;
+}
+
+// parser
+ctError ctParseToken( const void* buf, size_t buf_size, ctToken* token, size_t* shift_to_next )
+{
+	_ASSERT_EXPR( false, "not implemented" );
+	return CT_NotImplemented;
 }

@@ -33,6 +33,12 @@
     <ClInclude Include="include\cetonia\client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cetonia\parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Parser.h">
+      <Filter>Source Files\impl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\cetonia.cpp">

@@ -148,7 +148,9 @@
   <ItemGroup>
     <ClInclude Include="include\cetonia\cetonia.h" />
     <ClInclude Include="include\cetonia\client.h" />
+    <ClInclude Include="include\cetonia\parser.h" />
     <ClInclude Include="src\Connection.h" />
+    <ClInclude Include="src\Parser.h" />
     <ClInclude Include="src\SMConnection.h" />
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
