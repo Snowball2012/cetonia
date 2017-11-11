@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 *.sln
 /3rdparty/boost_1_65_1
+enc_temp_folder/

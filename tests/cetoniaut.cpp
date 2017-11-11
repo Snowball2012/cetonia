@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 #include <cetonia/client.h>
+#include <cetonia/parser.h>
 
 #include <iostream>
 
@@ -16,9 +17,6 @@ int main( int argc, char** argv )
 {
 	if ( argc == 1 )
 	{
-		// parent
-		ctHelloWorld();
-
 		ctConnectionHandle connection;
 		if ( ctFailed( ctCreateConnection( &connection ) ) )
 		{
@@ -28,37 +26,20 @@ int main( int argc, char** argv )
 
 		std::string message( "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn" );
 
-		if ( ctFailed( ctSendData( connection, message.c_str(), message.size() ) ) )
+		if ( ctFailed( ctSendArbitrary( connection, message.c_str(), message.size() ) ) )
 		{
 			std::cerr << "send failed";
 			return 2;
 		}
 
 
+		std::cout << argv[0];
+		system( ( std::string( argv[0] ) + " child" ).c_str() );
+
 		if ( ctFailed( ctCloseConnection( connection ) ) )
 		{
 			std::cerr << "connection destruction failed";
 		}
-
-		std::cout << "\nRound2\n";
-
-		ctCreateConnection( &connection );
-		ctBeginRecording( connection, 300 );
-
-		message = "msg1";
-		ctSendData( connection, message.c_str(), message.size() );
-
-		std::cout << "parent msg" << std::endl;
-
-		message = "msg2";
-		ctSendData( connection, message.c_str(), message.size() );
-		ctFlush( connection );
-
-		std::cout << argv[0];
-		system( ( std::string( argv[0] ) + " child" ).c_str() );
-
-
-		ctCloseConnection( connection );
 	}
 	else
 	{
@@ -77,13 +58,42 @@ int main( int argc, char** argv )
 			std::cerr << "empty region";
 			return 4;
 		}
+
+		system ( "pause" );
+
 		size_t msg_size = *reinterpret_cast<const size_t*>( region.get_address() );
 
 		const char* msg = reinterpret_cast<const char*>( region.get_address() ) + sizeof( size_t );
-		
+
 		std::cout << "client, recieved msg:\n";
-		for ( size_t i = 0; i < msg_size; ++i )
-			std::cout << *msg++;
+		size_t stride = 0;
+		while ( stride < msg_size )
+		{
+			size_t token_shift;
+			ctToken token;
+			if ( ctFailed( ctParseToken( msg + stride, msg_size - stride, &token, &token_shift ) ) || ! ctIsTokenValid( token.type ) )
+			{
+				std::cerr << "failed to read token";
+				return 6;
+			}
+			stride += token_shift;
+
+			switch ( token.type )
+			{
+			case CT_Arbitrary:
+			{
+				std::cout << "arb, size = " << token.data.arbitrary.size << " data: ";
+				for ( size_t i = 0; i < token.data.arbitrary.size; ++i )
+					std::cout << *((const char*)token.data.arbitrary.data + i);
+				std::cout << std::endl;
+				break;
+			}
+			default:
+				std::cerr << "Token notimpl";
+				return 10;
+			}
+		}
+		
 		std::cout.flush();
 	}
     return 0;

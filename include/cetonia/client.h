@@ -8,6 +8,7 @@ typedef ctConnection* ctConnectionHandle;
 // hello, world! =)
 CETONIA_API void ctHelloWorld();
 
+// Level 0: connection creation & arbitrary data
 // default connection, uses shared memory buffer
 CETONIA_API ctError ctCreateConnection( ctConnectionHandle* connection );
 
@@ -23,3 +24,6 @@ CETONIA_API ctError ctSendData( ctConnectionHandle connection, const void* data,
 CETONIA_API ctError ctBeginRecording( ctConnectionHandle connection, size_t estimate_size );
 // flushes all commands. does nothing if command buffer is empty
 CETONIA_API ctError ctFlush( ctConnectionHandle connection );
+
+// Level 1: cetonia tokens
+CETONIA_API ctError ctSendArbitrary( ctConnectionHandle connection, const void* data, size_t size );
