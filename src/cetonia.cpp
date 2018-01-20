@@ -8,11 +8,6 @@
 
 #include "Parser.h"
 
-void ctHelloWorld()
-{
-	std::cout << "hello, world!" << std::endl;
-}
-
 namespace
 {
 	constexpr Connection* Handle2Interface( ctConnectionHandle handle )
@@ -72,6 +67,20 @@ ctError ctSendArbitrary( ctConnectionHandle handle, const void* data, size_t siz
 		*p++ = byte;
 
 	return ctSendData( handle, adata.data(), size + 16 );
+}
+
+ctError ctSendLine2d( ctConnectionHandle handle, const ctTokenLine2d* token )
+{
+	constexpr size_t size = sizeof( *token );
+
+	std::vector<uint64_t> adata;
+	adata.resize( ( size + 15 ) / 8, 0 );
+	adata[0] = CT_Line2d;
+	uint8_t* p = reinterpret_cast<uint8_t*>( adata.data() + 1 );
+	for ( uint8_t byte : ByteRange{ token, size } )
+		*p++ = byte;
+
+	return ctSendData( handle, adata.data(), size + 8 );
 }
 
 // parser

@@ -1,12 +1,10 @@
 #pragma once
 
 #include "cetonia.h"
+#include "parser.h"
 
 typedef struct ctConnection ctConnection;
 typedef ctConnection* ctConnectionHandle;
-
-// hello, world! =)
-CETONIA_API void ctHelloWorld();
 
 // Level 0: connection creation & arbitrary data
 // default connection, uses shared memory buffer
@@ -27,3 +25,4 @@ CETONIA_API ctError ctFlush( ctConnectionHandle connection );
 
 // Level 1: cetonia tokens
 CETONIA_API ctError ctSendArbitrary( ctConnectionHandle connection, const void* data, size_t size );
+CETONIA_API ctError ctSendLine2d( ctConnectionHandle connection, const ctTokenLine2d* token );

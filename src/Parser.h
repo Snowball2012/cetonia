@@ -6,8 +6,7 @@
 
 #include "Utils.h"
 
-// Parses ctTokens and serializes tokens
-
+// ctTokens parsing and serialization
 namespace Parser
 {
 
@@ -40,9 +39,28 @@ namespace Parser
 		return true;
 	}
 
+	template<>
+	bool ParseToken<CT_Line2d>( const void* data, size_t max_size, ctTokenData& token, size_t& data_stride )
+	{
+		if ( ! VERIFY( IsAlignedTo( data, 8 ) ) )
+			return false;
+
+		constexpr size_t data_size = sizeof( token.l2d );
+		if ( ! VERIFY( max_size >= data_size ) )
+			return false;
+
+		auto data_64_ptr = reinterpret_cast<const ctTokenLine2d*>( data );
+
+		token.l2d = *data_64_ptr;
+		data_stride = data_size;
+
+		return true;
+	}
+
 	inline bool ParseToken( const void* data, size_t max_size, ctToken& token, size_t& token_stride )
 	{
 		if ( ! VERIFY( max_size >= 8 ) )
+			return false;
 		if ( ! VERIFY( IsAlignedTo( data, 8 ) ) )
 			return false;
 
@@ -61,6 +79,12 @@ namespace Parser
 			case CT_Arbitrary:
 			{
 				if ( ! ParseToken<CT_Arbitrary>( data_64_ptr, max_size, token.data, data_stride ) )
+					return false;
+				break;
+			}
+			case CT_Line2d:
+			{
+				if ( ! ParseToken<CT_Line2d>( data_64_ptr, max_size, token.data, data_stride ) )
 					return false;
 				break;
 			}
