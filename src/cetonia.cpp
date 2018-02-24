@@ -66,7 +66,9 @@ ctError ctSendArbitrary( ctConnectionHandle handle, const void* data, size_t siz
 	for ( uint8_t byte : ByteRange{ data, size } )
 		*p++ = byte;
 
-	return ctSendData( handle, adata.data(), size + 16 );
+	const size_t transmitted_size = GetClosestAlignedTo( size + 16, 8 );
+
+	return ctSendData( handle, adata.data(), transmitted_size );
 }
 
 ctError ctSendLine2d( ctConnectionHandle handle, const ctTokenLine2d* token )
@@ -80,7 +82,9 @@ ctError ctSendLine2d( ctConnectionHandle handle, const ctTokenLine2d* token )
 	for ( uint8_t byte : ByteRange{ token, size } )
 		*p++ = byte;
 
-	return ctSendData( handle, adata.data(), size + 8 );
+	const size_t transmitted_size = GetClosestAlignedTo( size + 8, 8 );
+
+	return ctSendData( handle, adata.data(), transmitted_size );
 }
 
 // parser

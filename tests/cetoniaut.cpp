@@ -24,6 +24,10 @@ int main( int argc, char** argv )
 			return 1;
 		}
 
+
+		if ( ctFailed( ctBeginRecording( connection, 100 ) ) )
+			return 3;
+
 		std::string message( "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn" );
 
 		if ( ctFailed( ctSendArbitrary( connection, message.c_str(), message.size() ) ) )
@@ -32,6 +36,16 @@ int main( int argc, char** argv )
 			return 2;
 		}
 
+		ctTokenLine2d line;
+		line.color = { 0, 0, 0 };
+		line.p1 = { 0, 1 };
+		line.p2 = { 0, 0.5 };
+		line.thickness = 0.1;
+		if ( ctFailed( ctSendLine2d( connection, &line ) ) )
+			return 4;
+
+		if ( ctFailed( ctFlush( connection ) ) )
+			return 5;
 
 		std::cout << argv[0];
 		system( ( std::string( argv[0] ) + " child" ).c_str() );
